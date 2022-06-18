@@ -47,7 +47,7 @@ class UserToJSON {
             // перевод строки в байты
             byte[] buffer = gson.toJson(users).getBytes();
             fos.write(buffer, 0, buffer.length);
-            System.out.println("File "+ userJson + " successfully created.");
+            System.out.println("File " + userJson + " successfully created.");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -75,6 +75,7 @@ class UserToJSON {
 class User {
     private String name;
     private Integer age;
+
     public User(String name, Integer age) {
     }
 
