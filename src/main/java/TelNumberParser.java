@@ -1,8 +1,4 @@
-package Task1;
-
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /*
@@ -20,26 +16,16 @@ import java.util.regex.Pattern;
     (123) 456-7890
 */
 
-public class TelNumberParser {
+public class TelNumberParser extends FileUtils{
     public static void main(String[] args) {
         TelNumberParser telNumberParser = new TelNumberParser();
         File file = new File("./src/main/java/Task1/file.txt");
-        telNumberParser.telNumFound(file);
+        telNumberParser.printRightNumbers(readFile(file));
     }
-
-    public void telNumFound(File file) {
-        try (FileReader reader = new FileReader(file)) {
-            String string = "";
-            char[] buf = new char[256];
-            while ((reader.read(buf)) > 0) {
-                string = String.valueOf(buf);
-            }
-            Matcher matcher = Pattern.compile("\\(?\\d{3}\\)?[-\\s]\\d{3}-\\d{4}").matcher(string);
-            while (matcher.find()) {
-                System.out.println("\n" + matcher.group());
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+    public void printRightNumbers(String tetx){
+        Matcher matcher = Pattern.compile("\\(?\\d{3}\\)?[-\\s]\\d{3}-\\d{4}").matcher(tetx);
+        while (matcher.find()) {
+            System.out.println("\n" + matcher.group());
         }
     }
 }

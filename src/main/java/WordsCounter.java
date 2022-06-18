@@ -1,4 +1,7 @@
-package Task3;
+import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /*
 Задание 3#
 Напишите метод, который будет подсчитывать частоту каждого слова в файле words.txt.
@@ -17,5 +20,18 @@ package Task3;
         day 1
 Обратите внимание! Вывод на консоль должен быть отсортирован на частоте слов (от наибольшей к наименьшей)
 */
-public class WordsCounter {
+public class WordsCounter extends FileUtils {
+    public static void main(String[] args) {
+        WordsCounter wordsCounter = new WordsCounter();
+        File words = new File("./src/main/java/Task3/words.txt");
+        System.out.println(words);
+        System.out.println(readFile(words));
+    }
+
+    public void count(String text) {
+        Matcher matcher = Pattern.compile("\\(?\\d{3}\\)?[-\\s]\\d{3}-\\d{4}").matcher(text);
+        while (matcher.find()) {
+            System.out.println("\n" + matcher.group());
+        }
+    }
 }
