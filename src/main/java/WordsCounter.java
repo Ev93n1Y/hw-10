@@ -1,6 +1,11 @@
-import java.io.File;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
 Задание 3#
@@ -20,18 +25,24 @@ import java.util.regex.Pattern;
         day 1
 Обратите внимание! Вывод на консоль должен быть отсортирован на частоте слов (от наибольшей к наименьшей)
 */
-public class WordsCounter extends FileUtils {
+public class WordsCounter{
     public static void main(String[] args) {
         WordsCounter wordsCounter = new WordsCounter();
-        File words = new File("./src/main/java/Task3/words.txt");
-        System.out.println(words);
-        System.out.println(readFile(words));
+        wordsCounter.count("./src/main/java/Task3/words.txt");
     }
 
-    public void count(String text) {
-        Matcher matcher = Pattern.compile("\\(?\\d{3}\\)?[-\\s]\\d{3}-\\d{4}").matcher(text);
-        while (matcher.find()) {
-            System.out.println("\n" + matcher.group());
+    public void count(String path) {
+        Map<String, Long> cntMap;
+        try {
+            cntMap = Files.lines(Paths.get(path))
+                    .flatMap(l -> Stream.of(l.split("\\W+")))
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+            cntMap.forEach((k, v) -> System.out.println(k + " " + v));
+            // сортированный вывод по возрастанию
+            //cntMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -20,9 +20,9 @@ public class TelNumberParser extends FileUtils{
     public static void main(String[] args) {
         TelNumberParser telNumberParser = new TelNumberParser();
         File file = new File("./src/main/java/Task1/file.txt");
-        telNumberParser.printRightNumbers(readFile(file));
+        telNumberParser.printMatchNumbers(readFile(file));
     }
-    public void printRightNumbers(String tetx){
+    public void printMatchNumbers(String tetx){
         Matcher matcher = Pattern.compile("\\(?\\d{3}\\)?[-\\s]\\d{3}-\\d{4}").matcher(tetx);
         while (matcher.find()) {
             System.out.println("\n" + matcher.group());
