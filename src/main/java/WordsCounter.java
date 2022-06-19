@@ -23,7 +23,8 @@ import java.util.stream.Stream;
         is 3
         sunny 2
         day 1
-Обратите внимание! Вывод на консоль должен быть отсортирован на частоте слов (от наибольшей к наименьшей)
+Обратите внимание!
+Вывод на консоль должен быть отсортирован на частоте слов (от наибольшей к наименьшей)
 */
 public class WordsCounter{
     public static void main(String[] args) {
@@ -38,9 +39,9 @@ public class WordsCounter{
                     .flatMap(l -> Stream.of(l.split("\\W+")))
                     .filter(s -> !s.isEmpty())
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-            cntMap.forEach((k, v) -> System.out.println(k + " " + v));
+            //cntMap.forEach((k, v) -> System.out.println(k + " " + v));
             // сортированный вывод по возрастанию
-            //cntMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+            cntMap.entrySet().stream().sorted(Map.Entry.<String,Long>comparingByValue().reversed()).forEach(System.out::println);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
